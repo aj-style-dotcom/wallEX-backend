@@ -1,7 +1,7 @@
 package com.codelancer.WallEX.controller;
 
-import com.codelancer.WallEX.model.WallModel;
-import com.codelancer.WallEX.service.WallService;
+import com.codelancer.WallEX.model.WallpaperModel;
+import com.codelancer.WallEX.service.WallpaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,15 +12,15 @@ import java.util.List;
 public class WallController {
 
     @Autowired
-    WallService wallService;
+    WallpaperService wallpaperService;
 
     @GetMapping("all")
-    public List<WallModel> getAllWall(){
-        return wallService.getAllWall();
+    public List<WallpaperModel> getAllWall(){
+        return wallpaperService.getAllWall();
     }
 
     @GetMapping("{ID}")
-    public WallModel getWall(@PathVariable("ID") String id){
-        return wallService.getWall(id);
+    public WallpaperModel getWall(@PathVariable("ID") String id){
+        return wallpaperService.getWall(id);
     }
 }

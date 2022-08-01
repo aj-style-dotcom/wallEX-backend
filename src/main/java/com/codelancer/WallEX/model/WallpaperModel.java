@@ -17,5 +17,5 @@ public class WallpaperModel {
     @Id
     String Id;
     String category;
-    String fileName;
+    String url;
 }
