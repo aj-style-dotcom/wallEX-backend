@@ -18,11 +18,12 @@ public class WallService {
     @Autowired
     WallRepo wallRepo;
 
-    public WallModel storeWall(MultipartFile file) throws IOException {
+    public WallModel storeWall(MultipartFile file, String category) throws IOException {
         WallModel wallModel = new WallModel(UUID.randomUUID().toString(),
                 file.getOriginalFilename(),
                 file.getContentType(),
-                file.getBytes());
+                file.getBytes(),
+                category);
         return wallRepo.save(wallModel);
     }
 

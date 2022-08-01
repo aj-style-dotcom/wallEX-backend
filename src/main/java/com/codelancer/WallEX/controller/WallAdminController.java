@@ -16,9 +16,10 @@ public class WallAdminController {
     @Autowired
     WallService wallService;
 
-    @PostMapping("wall")
-    public WallModel addWall(@RequestParam("file") MultipartFile file) throws IOException {
-        return wallService.storeWall(file);
+    @PostMapping("wall/{CATE}")
+    public WallModel addWall(@RequestParam("file") MultipartFile file, @PathVariable("CATE") String category) throws IOException {
+        System.out.println(category);
+        return wallService.storeWall(file, category);
     }
 
     @DeleteMapping("wall/{ID}")

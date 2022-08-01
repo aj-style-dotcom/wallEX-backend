@@ -22,4 +22,5 @@ public class WallModel {
     String type;
     @Lob
     byte[] data;
+    String category;
 }
