@@ -16,22 +16,28 @@ import java.util.UUID;
 public class WallService {
 
     @Autowired
-    WallRepo wallRepoObj;
+    WallRepo wallRepo;
 
     public WallModel storeWall(MultipartFile file) throws IOException {
-        WallModel wallModelObj = new WallModel(UUID.randomUUID().toString(),
+        WallModel wallModel = new WallModel(UUID.randomUUID().toString(),
                 file.getOriginalFilename(),
                 file.getContentType(),
                 file.getBytes());
-        return wallRepoObj.save(wallModelObj);
+        return wallRepo.save(wallModel);
     }
 
     public WallModel getWall(String id){
-        Optional<WallModel> wallModelOptional = wallRepoObj.findById(id);
+        Optional<WallModel> wallModelOptional = wallRepo.findById(id);
         return wallModelOptional.orElse(null);
     }
 
     public List<WallModel> getAllWall(){
-        return wallRepoObj.findAll();
+        return wallRepo.findAll();
     }
+
+    public void deleteWall(String id){
+        //WallModel wallModel = wallRepo.findById(id).orElseThrow(()-> new IllegalStateException("wallpaper not found"));
+        wallRepo.delete(wallRepo.findById(id).orElseThrow(()-> new IllegalStateException("wallpaper not found")));
+    }
+
 }

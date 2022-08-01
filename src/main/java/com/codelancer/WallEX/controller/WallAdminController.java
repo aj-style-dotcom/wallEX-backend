@@ -20,4 +20,9 @@ public class WallAdminController {
     public WallModel addWall(@RequestParam("file") MultipartFile file) throws IOException {
         return wallService.storeWall(file);
     }
+
+    @DeleteMapping("wall/{ID}")
+    public void deleteWall(@PathVariable("ID") String id){
+        wallService.deleteWall(id);
+    }
 }
