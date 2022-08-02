@@ -1,6 +1,7 @@
 package com.codelancer.WallEX.config;
 
 import com.codelancer.WallEX.service.CustomUserDetails;
+import com.codelancer.WallEX.utility.RequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -21,6 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetails customUserDetails;
 
+    @Autowired
+    private RequestFilter requestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+        http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
