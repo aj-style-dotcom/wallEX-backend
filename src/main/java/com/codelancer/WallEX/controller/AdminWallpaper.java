@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("admin")
-public class WallAdminController {
+public class AdminWallpaper {
 
     @Autowired
     WallpaperService wallpaperService;

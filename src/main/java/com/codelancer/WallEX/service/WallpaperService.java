@@ -1,7 +1,7 @@
 package com.codelancer.WallEX.service;
 
 
-import com.codelancer.WallEX.model.WallpaperModel;
+import com.codelancer.WallEX.model.Wallpaper;
 import com.codelancer.WallEX.repo.WallpaperRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -25,12 +25,12 @@ public class WallpaperService {
     WallpaperRepo wallpaperRepo;
 
 
-    public WallpaperModel getWall(String id){
-        Optional<WallpaperModel> wallModelOptional = wallpaperRepo.findById(id);
+    public Wallpaper getWall(String id){
+        Optional<Wallpaper> wallModelOptional = wallpaperRepo.findById(id);
         return wallModelOptional.orElse(null);
     }
 
-    public List<WallpaperModel> getAllWall(){
+    public List<Wallpaper> getAllWall(){
         return wallpaperRepo.findAll();
     }
 
@@ -52,9 +52,9 @@ public class WallpaperService {
                     .path(file.getOriginalFilename())
                     .toUriString();
 
-            WallpaperModel wallpaperModel = new WallpaperModel(UUID.randomUUID().toString(), category, wallUrl);
+            Wallpaper wallpaper = new Wallpaper(UUID.randomUUID().toString(), category, wallUrl);
 
-            wallpaperRepo.save(wallpaperModel);
+            wallpaperRepo.save(wallpaper);
 
             uploaded=true;
         } catch (Exception e) {

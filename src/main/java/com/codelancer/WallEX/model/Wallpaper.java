@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class WallpaperModel {
+public class Wallpaper {
     @Id
     String Id;
     String category;
