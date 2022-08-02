@@ -45,7 +45,11 @@ public class RequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
             }else{
-                System.out.println("token is not valid");
+                try {
+                    throw new Exception("token is not valid");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         filterChain.doFilter(request, response);

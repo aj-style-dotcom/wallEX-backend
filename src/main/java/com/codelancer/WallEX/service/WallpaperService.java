@@ -26,8 +26,7 @@ public class WallpaperService {
 
 
     public Wallpaper getWall(String id){
-        Optional<Wallpaper> wallModelOptional = wallpaperRepo.findById(id);
-        return wallModelOptional.orElse(null);
+        return wallpaperRepo.findById(id).orElseThrow(()->new IllegalStateException("Wallpaper not found"));
     }
 
     public List<Wallpaper> getAllWall(){
