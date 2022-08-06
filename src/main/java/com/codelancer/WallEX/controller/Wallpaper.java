@@ -22,4 +22,7 @@ public class Wallpaper {
     public com.codelancer.WallEX.model.Wallpaper getWall(@PathVariable("ID") String id){
         return wallpaperService.getWall(id);
     }
+
+
+
 }
