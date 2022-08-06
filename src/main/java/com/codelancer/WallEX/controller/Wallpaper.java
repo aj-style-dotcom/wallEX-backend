@@ -13,16 +13,14 @@ public class Wallpaper {
     @Autowired
     WallpaperService wallpaperService;
 
-    @GetMapping("all")
+    @GetMapping("get/all")
     public List<com.codelancer.WallEX.model.Wallpaper> getAllWall(){
         return wallpaperService.getAllWall();
     }
 
-    @GetMapping("{ID}")
+    @GetMapping("get/{ID}")
     public com.codelancer.WallEX.model.Wallpaper getWall(@PathVariable("ID") String id){
         return wallpaperService.getWall(id);
     }
-
-
 
 }

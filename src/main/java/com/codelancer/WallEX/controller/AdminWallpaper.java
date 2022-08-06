@@ -16,12 +16,12 @@ public class AdminWallpaper {
     @Autowired
     WallpaperService wallpaperService;
 
-    @DeleteMapping("wallpaper/{ID}")
+    @DeleteMapping("wallpaper/delete/{ID}")
     public void deleteWall(@PathVariable("ID") String id){
         wallpaperService.deleteWall(id);
     }
 
-    @PostMapping("wallpaper/{CATE}")
+    @PostMapping("wallpaper/upload/{CATE}")
     public ResponseEntity<String> uploadWall(@RequestParam("wallpaper") MultipartFile file, @PathVariable("CATE") String category){
         try {
 

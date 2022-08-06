@@ -38,7 +38,8 @@ public class WallpaperService {
 
     public boolean wallUploaded(MultipartFile file, String category) throws IOException {
 
-        final String DIR_NAME= new ClassPathResource("static/Wallpapers/").getFile().getAbsolutePath();
+        final String DIR_NAME= new ClassPathResource("static/wallpaper/").getFile().getAbsolutePath();
+        //final String DIR_NAME= "E:\\bootProject\\Wall-EX\\src\\main\\resources\\static\\Wallpapers";
         boolean uploaded = false;
 
         try {
@@ -46,7 +47,7 @@ public class WallpaperService {
             Files.copy(file.getInputStream(), Paths.get(DIR_NAME+ File.separator+file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 
             String wallUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("Wallpaper")
+                    .path("wallpaper/")
                     .path(file.getOriginalFilename())
                     .toUriString();
 
