@@ -22,13 +22,13 @@ public class AdminWallpaper {
     }
 
     @PostMapping("wallpaper/upload/{CATE}")
-    public ResponseEntity<String> uploadWall(@RequestParam("wallpaper") MultipartFile file, @PathVariable("CATE") String category){
+    public ResponseEntity<String> uploadWall(@RequestParam("wallpaper") MultipartFile[] files, @PathVariable("CATE") String category){
         try {
 
-        if(file.isEmpty())
+        if(files.length==0)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("no file attached");
 
-        if(wallpaperService.wallUploaded(file, category)){
+        if(wallpaperService.wallUploaded(files, category)){
             return ResponseEntity.ok("wallpaper uploaded");
         }
 

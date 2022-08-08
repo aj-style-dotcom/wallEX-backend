@@ -23,4 +23,9 @@ public class Wallpaper {
         return wallpaperService.getWall(id);
     }
 
+    @GetMapping("get/cate/{category}")
+    public List<com.codelancer.WallEX.model.Wallpaper> getWallByCate(@PathVariable("category") String cate){
+        return wallpaperService.getWallByCate(cate);
+    }
+
 }

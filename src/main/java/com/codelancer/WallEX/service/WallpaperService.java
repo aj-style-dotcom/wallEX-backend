@@ -5,6 +5,7 @@ import com.codelancer.WallEX.model.Wallpaper;
 import com.codelancer.WallEX.repo.WallpaperRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,7 +38,7 @@ public class WallpaperService {
         wallpaperRepo.delete(wallpaperRepo.findById(id).orElseThrow(()-> new IllegalStateException("wallpaper not found")));
     }
 
-    public boolean wallUploaded(MultipartFile file, String category) throws IOException {
+    public boolean wallUploaded(MultipartFile[] files, String category) throws IOException {
 
         final String DIR_NAME= new ClassPathResource("static/wallpaper/").getFile().getAbsolutePath();
         //final String DIR_NAME= "E:\\bootProject\\Wall-EX\\src\\main\\resources\\static\\Wallpapers";
@@ -44,16 +46,19 @@ public class WallpaperService {
 
         try {
 
-            Files.copy(file.getInputStream(), Paths.get(DIR_NAME+ File.separator+file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+            for (MultipartFile file:files) {
 
-            String wallUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("wallpaper/")
-                    .path(file.getOriginalFilename())
-                    .toUriString();
+                Files.copy(file.getInputStream(), Paths.get(DIR_NAME + File.separator + file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 
-            Wallpaper wallpaper = new Wallpaper(UUID.randomUUID().toString(), category, wallUrl);
+                String wallUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("wallpaper/")
+                        .path(file.getOriginalFilename())
+                        .toUriString();
 
-            wallpaperRepo.save(wallpaper);
+                Wallpaper wallpaper = new Wallpaper(UUID.randomUUID().toString(), category, wallUrl);
+
+                wallpaperRepo.save(wallpaper);
+            }
 
             uploaded=true;
         } catch (Exception e) {
@@ -62,5 +67,15 @@ public class WallpaperService {
         return uploaded;
     }
 
+
+    public List<Wallpaper> getWallByCate(String category){
+        List<Wallpaper> wallpaperList = new ArrayList<Wallpaper>();
+        for (Wallpaper wall: wallpaperRepo.findAll()) {
+            if (wall.getCategory().equals(category)) {
+                wallpaperList.add(wall);
+            }
+        }
+        return wallpaperList;
+    }
 
 }
